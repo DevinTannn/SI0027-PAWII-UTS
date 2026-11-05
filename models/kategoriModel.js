@@ -6,3 +6,5 @@ const kategoriSchema = new mongoose.Schema({
 });
 
 module.exports = mongoose.model("Kategori", kategoriSchema);
+
+// Tanjungan 2428240003

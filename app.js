@@ -38,3 +38,5 @@ mongoose
     console.error("Gagal terhubung ke MongoDB:", err.message);
     process.exit(1);
   });
+
+  // Tanjungan 2428240003

@@ -72,3 +72,5 @@ const bukuSchema = new mongoose.Schema({
 });
 
 module.exports = mongoose.model("Buku", bukuSchema);
+
+// Tanjungan 2428240003

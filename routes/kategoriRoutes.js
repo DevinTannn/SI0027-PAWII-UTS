@@ -6,3 +6,5 @@ router.get("/", kategoriController.getAll);
 router.post("/", kategoriController.create);
 
 module.exports = router;
+
+// Tanjungan 2428240003

@@ -18,3 +18,5 @@ router.put("/:id", bukuController.update);
 router.delete("/:id", bukuController.remove);
 
 module.exports = router;
+
+// Tanjungan 2428240003

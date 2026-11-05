@@ -9,3 +9,5 @@ exports.create = async (req, res) => {
   const kategori = await Kategori.create(req.body);
   res.status(201).json(kategori);
 };
+
+// Tanjungan 2428240003

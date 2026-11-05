@@ -108,3 +108,5 @@ exports.remove = async (req, res) => {
   if (!data) throw { status: 404, message: "Buku Tidak ditemukan" };
   res.status(204).send();
 };
+
+// Tanjungan 2428240003
