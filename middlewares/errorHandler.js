@@ -13,6 +13,31 @@
 
 function errorHandler(err, req, res, next) {
   // TODO D1
+  let status = 500;
+  let message = 'Terjadi kesalahan pada server';
+
+  if (err.status) {
+    status = err.status;
+    message = err.message;
+  } else if (err.name === 'ValidationError') {
+    status = 400;
+    message = err.message;
+  } else if (err.name === 'CastError') {
+    status = 400;
+    message = `Format ${err.path} tidak valid`;
+  } else if (err.code === 11000) {
+    status = 400;
+    message = 'Data dengan nilai unik tersebut sudah ada';
+  } else {
+  
+    console.error('UNEXPECTED ERROR:', err);
+    status = 500;
+    message = 'Terjadi kesalahan pada server';
+  }
+
+  res.status(status).json({ 
+    message: message 
+  });
 }
 
 module.exports = errorHandler;
