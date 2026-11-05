@@ -27,25 +27,25 @@ const penerbitSchema = new mongoose.Schema({
   tahun: { 
     type: Number,
     min: [1900, "Minimal terbit Tahun 1900"],
-    max: [2026, "Maximal Tahun Sekarang"],
+    max: [new Date().getFullYear(), "Tahun tidak boleh melebihi tahun sekarang"],
   }
 }, { _id: false });
 
 const bukuSchema = new mongoose.Schema({
   judul: { 
     type: String, 
-    required: [true, "Nama Buku wajib diisi"],
+    required: [true, "Judul buku wajib diisi"],
     trim: true 
   },
   isbn: { 
     type: String, 
-    required: [true, "Kode wajib diisi"],
+    required: [true, "ISBN wajib diisi"],
     unique: true,
-    match: [/^UN-\d{13}$/]
+    match: [/^\d{13}$/, "ISBN harus tepat 13 digit angka"]
   },
   penulis: {
     type: [String],
-    required: [true, "Buku wajib diisi"],
+    required: [true, "Penulis wajib diisi"],
     validate: {
       validator: function(v) {
         return Array.isArray(v) && v.length > 0;
@@ -59,16 +59,16 @@ const bukuSchema = new mongoose.Schema({
   },
   kategoriId: { 
     type: mongoose.Schema.Types.ObjectId, 
-    ref: "kategori", 
+    ref: "Kategori",
     required: [true, "Kategori ID wajib diisi"] 
   },
   stok: {
     type: Number,
     default: 0,
-    min: [0, "Stok tidak boleh mines"],
+    min: [0, "Stok tidak boleh bernilai negatif"],
   }
 }, { 
-  timestamps: true // Otomatis membuat createdAt dan updatedAt
+  timestamps: true 
 });
 
 module.exports = mongoose.model("Buku", bukuSchema);

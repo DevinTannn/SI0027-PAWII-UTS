@@ -25,11 +25,11 @@ exports.getAll = async (req, res) => {
   const skip = (page - 1) * limit;
 
   const filter = {};
-  if (req.query.bukuId) {
-    filter.bukuId = req.query.bukuId;
+  if (req.query.kategoriId) {
+    filter.kategoriId = req.query.kategoriId;
   }
 
-  let query = Buku.find(filter).populate("");
+  let query = Buku.find(filter).populate("kategoriId");
 
   if (req.query.sort) {
     query = query.sort(req.query.sort);
@@ -43,13 +43,12 @@ exports.getAll = async (req, res) => {
   }
 
   query = query.skip(skip).limit(limit);
-  
+
   const [data, total] = await Promise.all([
     query,
     Buku.countDocuments(filter)
   ]);
 
-  // Kirim respons sesuai format yang diminta soal
   res.json({
     data,
     page,
@@ -64,7 +63,7 @@ exports.getAll = async (req, res) => {
 //   - format id salah -> 400 (ditangani errorHandler lewat CastError)
 exports.getById = async (req, res) => {
   // TODO B2
-  const data = await Buku.findById(req.params.id).populate("bukuId");
+  const data = await Buku.findById(req.params.id).populate("kategoriId");
   if (!data) throw { status: 404, message: "Tidak ditemukan" };
   res.json(data);
 };
@@ -95,7 +94,7 @@ exports.update = async (req, res) => {
   const data = await Buku.findByIdAndUpdate(req.params.id, req.body, {
     new: true,
     runValidators: true,
-  }).populate("bukuId");
+  }).populate("kategoriId");
   if (!data) throw { status: 404, message: "Buku Tidak ditemukan" };
   res.json(data);
 };
