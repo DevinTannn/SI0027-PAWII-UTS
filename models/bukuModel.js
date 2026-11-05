@@ -27,7 +27,7 @@ const penerbitSchema = new mongoose.Schema({
   tahun: { 
     type: Number,
     min: [1900, "Minimal terbit Tahun 1900"],
-    max: [2026, "Maximal Tahun Sekarang"]
+    max: [2026, "Maximal Tahun Sekarang"],
   }
 }, { _id: false });
 
@@ -65,12 +65,7 @@ const bukuSchema = new mongoose.Schema({
   stok: {
     type: Number,
     default: 0,
-    validate: {
-      validator: function(v) {
-        return Array.isArray(v) && v.length > 0;
-      },
-      message: "Stok tidak boleh mines"
-    }
+    min: [0, "Stok tidak boleh mines"],
   }
 }, { 
   timestamps: true // Otomatis membuat createdAt dan updatedAt

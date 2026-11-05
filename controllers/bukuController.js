@@ -42,10 +42,8 @@ exports.getAll = async (req, res) => {
     query = query.select(fields);
   }
 
-  // Pagination skip & limit
   query = query.skip(skip).limit(limit);
-
-  // Jalankan query data dan hitung total dokumen secara paralel
+  
   const [data, total] = await Promise.all([
     query,
     Buku.countDocuments(filter)
